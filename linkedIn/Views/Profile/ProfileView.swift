@@ -1983,8 +1983,8 @@ struct EditProfileView: View {
                 Image(systemName: "trash")
                     .font(.callout)
                     .foregroundColor(Constants.Colors.error)
+                }
             }
-        }
         .padding(Constants.Spacing.md)
         .background(Constants.Colors.secondaryBackground)
         .cornerRadius(Constants.CornerRadius.medium)

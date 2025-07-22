@@ -74,7 +74,7 @@ struct HomeView: View {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(Constants.Colors.secondaryLabel)
                             .font(.callout)
-                        
+                    
                         TextField("Search", text: $searchText)
                             .font(Constants.Fonts.body)
                     }
@@ -117,7 +117,7 @@ struct HomeView: View {
                         name: "Story \(index + 1)",
                         isViewed: index < 3
                     )
-                }
+        }
             }
             .padding(.horizontal, Constants.Spacing.md)
         }
@@ -529,25 +529,25 @@ struct PostCardView: View {
     // MARK: - Post Components
     private var postHeader: some View {
         HStack(alignment: .top) {
-            // Profile Image
+                // Profile Image
             AsyncImage(url: URL(string: post.authorProfileImageURL ?? Constants.Images.businessProfile1)) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                Circle()
-                    .fill(Constants.Colors.lightGray)
-                    .overlay(
-                        Text(post.authorName.initials)
-                            .font(Constants.Fonts.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(Constants.Colors.primaryBlue)
-                    )
-            }
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } placeholder: {
+                    Circle()
+                        .fill(Constants.Colors.lightGray)
+                        .overlay(
+                            Text(post.authorName.initials)
+                                .font(Constants.Fonts.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(Constants.Colors.primaryBlue)
+                        )
+                }
             .frame(width: 52, height: 52)
-            .clipShape(Circle())
-            
-            VStack(alignment: .leading, spacing: 2) {
+                .clipShape(Circle())
+                
+                VStack(alignment: .leading, spacing: 2) {
                 HStack {
                     Text(post.authorName)
                         .font(Constants.Fonts.professionalHeadline)
@@ -645,38 +645,38 @@ struct PostCardView: View {
     }
     
     private var postMedia: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: Constants.Spacing.sm) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: Constants.Spacing.sm) {
                 ForEach(Array(post.imageURLs.enumerated()), id: \.offset) { index, imageURL in
-                    AsyncImage(url: URL(string: imageURL)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        Rectangle()
-                            .fill(Constants.Colors.lightGray)
-                            .shimmer(isLoading: true)
-                    }
+                            AsyncImage(url: URL(string: imageURL)) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            } placeholder: {
+                                Rectangle()
+                                    .fill(Constants.Colors.lightGray)
+                                    .shimmer(isLoading: true)
+                            }
                     .frame(width: post.imageURLs.count == 1 ? UIScreen.main.bounds.width - 32 : 280, height: 200)
-                    .cornerRadius(Constants.CornerRadius.medium)
-                    .clipped()
-                }
-            }
+                            .cornerRadius(Constants.CornerRadius.medium)
+                            .clipped()
+                        }
+                    }
             .padding(.horizontal, Constants.Spacing.cardPadding)
-        }
+                }
         .padding(.top, Constants.Spacing.md)
-    }
-    
+            }
+            
     private var engagementStats: some View {
-        HStack {
-            if likeCount > 0 {
-                HStack(spacing: Constants.Spacing.xs) {
+                HStack {
+                    if likeCount > 0 {
+                        HStack(spacing: Constants.Spacing.xs) {
                     HStack(spacing: -4) {
                         Circle()
                             .fill(Constants.Colors.likeRed)
                             .frame(width: 16, height: 16)
                             .overlay(
-                                Image(systemName: "heart.fill")
+                            Image(systemName: "heart.fill")
                                     .font(.system(size: 8))
                                     .foregroundColor(.white)
                             )
@@ -694,84 +694,84 @@ struct PostCardView: View {
                     Button("\(likeCount)") {
                         // Show who liked
                     }
-                    .font(Constants.Fonts.caption1)
-                    .foregroundColor(Constants.Colors.secondaryLabel)
-                }
-            }
-            
+                                .font(Constants.Fonts.caption1)
+                                .foregroundColor(Constants.Colors.secondaryLabel)
+                        }
+                    }
+                    
             Spacer()
             
             HStack(spacing: Constants.Spacing.md) {
-                if post.commentCount > 0 {
+                    if post.commentCount > 0 {
                     Button("\(post.commentCount) comments") {
                         showComments.toggle()
                     }
-                    .font(Constants.Fonts.caption1)
-                    .foregroundColor(Constants.Colors.secondaryLabel)
-                }
-                
-                if post.shares > 0 {
+                            .font(Constants.Fonts.caption1)
+                            .foregroundColor(Constants.Colors.secondaryLabel)
+                    }
+                    
+                    if post.shares > 0 {
                     Text("\(post.shares) reposts")
-                        .font(Constants.Fonts.caption1)
-                        .foregroundColor(Constants.Colors.secondaryLabel)
+                            .font(Constants.Fonts.caption1)
+                            .foregroundColor(Constants.Colors.secondaryLabel)
+                    }
                 }
-            }
         }
         .padding(.horizontal, Constants.Spacing.cardPadding)
         .padding(.top, Constants.Spacing.md)
         .padding(.bottom, Constants.Spacing.sm)
-    }
-    
-    private var actionButtons: some View {
-        HStack {
-            actionButton(
-                icon: isLiked ? "heart.fill" : "heart",
-                text: "Like",
-                color: isLiked ? Constants.Colors.likeRed : Constants.Colors.secondaryLabel
-            ) {
-                handleLike()
             }
             
-            Spacer()
-            
+    private var actionButtons: some View {
+            HStack {
+                actionButton(
+                    icon: isLiked ? "heart.fill" : "heart",
+                    text: "Like",
+                color: isLiked ? Constants.Colors.likeRed : Constants.Colors.secondaryLabel
+                ) {
+                    handleLike()
+                }
+                
+                Spacer()
+                
             actionButton(
                 icon: "bubble.left", 
                 text: "Comment", 
                 color: Constants.Colors.commentBlue
             ) {
-                showComments.toggle()
-            }
-            
-            Spacer()
-            
+                    showComments.toggle()
+                }
+                
+                Spacer()
+                
             actionButton(
                 icon: "arrow.2.squarepath", 
                 text: "Repost", 
                 color: Constants.Colors.shareGreen
             ) {
-                handleShare()
-            }
-            
-            Spacer()
-            
+                    handleShare()
+                }
+                
+                Spacer()
+                
             actionButton(
                 icon: "paperplane", 
                 text: "Send", 
                 color: Constants.Colors.sendPurple
             ) {
-                // Handle send
-            }
+                    // Handle send
+                }
         }
         .padding(.horizontal, Constants.Spacing.cardPadding)
         .padding(.vertical, Constants.Spacing.md)
-    }
-    
-    private var commentsSection: some View {
-        VStack(alignment: .leading, spacing: Constants.Spacing.sm) {
-            Divider()
-                .padding(.horizontal, Constants.Spacing.cardPadding)
+            }
             
-            // Add Comment
+    private var commentsSection: some View {
+                VStack(alignment: .leading, spacing: Constants.Spacing.sm) {
+                    Divider()
+                .padding(.horizontal, Constants.Spacing.cardPadding)
+                    
+                    // Add Comment
             HStack(spacing: Constants.Spacing.sm) {
                 AsyncImage(url: URL(string: Constants.Images.defaultProfileMale)) { image in
                     image
@@ -784,10 +784,10 @@ struct PostCardView: View {
                 .frame(width: 32, height: 32)
                 .clipShape(Circle())
                 
-                HStack {
-                    TextField("Add a comment...", text: $commentText)
-                        .font(Constants.Fonts.body)
-                    
+                    HStack {
+                        TextField("Add a comment...", text: $commentText)
+                            .font(Constants.Fonts.body)
+                        
                     if !commentText.isEmpty {
                         Button("Post") {
                             handleComment()
@@ -802,19 +802,19 @@ struct PostCardView: View {
                 .cornerRadius(Constants.CornerRadius.pill)
             }
             .padding(.horizontal, Constants.Spacing.cardPadding)
-            
-            // Comments List
-            ForEach(post.comments.prefix(3), id: \.id) { comment in
-                CommentRowView(comment: comment)
+                    
+                    // Comments List
+                    ForEach(post.comments.prefix(3), id: \.id) { comment in
+                        CommentRowView(comment: comment)
                     .padding(.horizontal, Constants.Spacing.cardPadding)
-            }
-            
-            if post.comments.count > 3 {
-                Button("View all \(post.comments.count) comments") {
-                    // Handle view all comments
-                }
+                    }
+                    
+                    if post.comments.count > 3 {
+                        Button("View all \(post.comments.count) comments") {
+                            // Handle view all comments
+                        }
                 .font(Constants.Fonts.body)
-                .foregroundColor(Constants.Colors.primaryBlue)
+                        .foregroundColor(Constants.Colors.primaryBlue)
                 .padding(.horizontal, Constants.Spacing.cardPadding)
                 .padding(.bottom, Constants.Spacing.md)
             }
